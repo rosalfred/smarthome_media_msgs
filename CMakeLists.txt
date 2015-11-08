@@ -29,8 +29,6 @@ add_message_files(
   SpeakerInfo.msg
   MonitorInfo.msg
   PlayerInfo.msg
-  Context.msg
-  Command.msg
   MediaAction.msg
   MediaType.msg
 )
