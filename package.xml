@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>media_msgs</name>
-  <version>0.1.57</version>
+  <version>0.1.58</version>
   <description>This package is Media message for ROS.</description>
 
   <maintainer email="mick.gaillard@gmail.com">Mickaël Gaillard</maintainer>
