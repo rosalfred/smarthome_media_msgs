@@ -1,5 +1,5 @@
 MediaItem item
-int32 limitStart
-int32 limitEnd
+int32 limit_start
+int32 limit_end
 ---
 MediaItem[] items

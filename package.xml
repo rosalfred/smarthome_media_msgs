@@ -1,26 +1,34 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="2">
   <name>smarthome_media_msgs</name>
-  <version>0.1.59</version>
-  <description>This package is Media message for ROS.</description>
+  <version>0.2.0</version>
+  <description>This package is Media message for ROS 2.</description>
 
   <maintainer email="mick.gaillard@gmail.com">Mickael Gaillard</maintainer>
   <maintainer email="erwan.lehuitouze@gmail.com">Erwan Le Huitouze</maintainer>
   <author email="mick.gaillard@gmail.com">Mickael Gaillard</author>
   <author email="erwan.lehuitouze@gmail.com">Erwan Le Huitouze</author>
 
-  <license>Apache V2</license>
+  <license>Apache License 2.0</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
 
-  <build_depend>message_generation</build_depend>
+  <build_depend>builtin_interfaces</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>smarthome_msgs</build_depend>
 
-  <run_depend>message_runtime</run_depend>
-  <run_depend>std_msgs</run_depend>
+  <exec_depend>builtin_interfaces</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>smarthome_msgs</exec_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
 
+  <test_depend>ament_lint_common</test_depend>
+  
   <export>
     <architecture_independent/>
+    <build_type>ament_cmake</build_type>
   </export>
-
 </package>

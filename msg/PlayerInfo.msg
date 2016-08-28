@@ -8,8 +8,8 @@ uint32 state
 int32 speed
 
 # Position
-duration stamp
-duration totaltime
+builtin_interfaces/Duration stamp
+builtin_interfaces/Duration totaltime
 
 bool canseek
 bool subtitleenabled
@@ -19,3 +19,4 @@ MediaType mediatype
 string title
 string file
 string thumbnail
+

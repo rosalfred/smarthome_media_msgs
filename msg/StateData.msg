@@ -1,7 +1,7 @@
 ## State data media message
 ## Common state of media connected object
 
-Header header
+std_msgs/Header header
 
 # State    0: Unknown, 1: Init, 2: Enable, 3: Shutdown
 uint32 state

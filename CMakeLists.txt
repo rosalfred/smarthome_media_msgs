@@ -1,14 +1,19 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
+
 project(smarthome_media_msgs)
 
+if(NOT WIN32)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+endif()
+
 ## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
+find_package(ament_cmake REQUIRED)
 
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(builtin_interfaces REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(smarthome_msgs REQUIRED)
 
+find_package(rosidl_default_generators REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -20,50 +25,32 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 #######################################
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-  DIRECTORY
-  msg
-  FILES
-  MediaItem.msg
-  StateData.msg
-  SpeakerInfo.msg
-  MonitorInfo.msg
-  PlayerInfo.msg
-  MediaAction.msg
-  MediaType.msg
+set(msg_files
+  "msg/MediaItem.msg"
+  "msg/StateData.msg"
+  "msg/SpeakerInfo.msg"
+  "msg/MonitorInfo.msg"
+  "msg/PlayerInfo.msg"
+  "msg/MediaAction.msg"
+  "msg/MediaType.msg"
 )
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  DIRECTORY
-  srv
-  FILES
-  ToggleMuteSpeaker.srv
-  MediaGetItem.srv
-  MediaGetItems.srv
+set(srv_files
+  "srv/ToggleMuteSpeaker.srv"
+  "srv/MediaGetItem.srv"
+  "srv/MediaGetItems.srv"
 )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
+  ${srv_files}
+  DEPENDENCIES 
+  builtin_interfaces
   std_msgs
-)
-
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES media_msgs
-  CATKIN_DEPENDS message_runtime std_msgs
-# roscpp rospy std_msgs
-#  DEPENDS system_lib
+  smarthome_msgs
+  ADD_LINTER_TESTS
 )
 
 ###########
@@ -74,7 +61,8 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+  ${std_msgs_INCLUDE_DIRS}
+  ${smarthome_msgs_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
@@ -98,26 +86,23 @@ include_directories(
 ## Install ##
 #############
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 #install(PROGRAMS
 #  scripts/my_python_script
-#  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#  DESTINATION lib/${PROJECT_NAME}
 #)
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS media_msgs media_msgs_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# install(TARGETS smarthome_msgs smarthome_msgs_node
+#   ARCHIVE DESTINATION lib
+#   LIBRARY DESTINATION lib
+#   RUNTIME DESTINATION lib/${PROJECT_NAME}
 # )
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   DESTINATION include/${PROJECT_NAME}
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
 # )
@@ -126,7 +111,7 @@ include_directories(
 # install(FILES
 #   # myfile1
 #   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+#   DESTINATION share/${PROJECT_NAME}
 # )
 
 #############
@@ -134,10 +119,20 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_media_msgs.cpp)
+# ament_add_gtest(${PROJECT_NAME}-test test/test_smarthome_msgs.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+# ament_add_nosetests(test)
+
+###################################
+## ament specific configuration ##
+###################################
+## The ament_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## CONFIG_EXTRAS: uncomment this if you package contains argument
+ament_package(
+#  CONFIG_EXTRAS 
+)
